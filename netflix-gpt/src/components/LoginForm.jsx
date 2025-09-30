@@ -1,7 +1,12 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { login } from '../slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isSignupForm, setIsSignupForm] = React.useState(false);
     const {
     register,
@@ -21,10 +26,9 @@ const LoginForm = () => {
         setIsSignupForm((prev) => !prev);
     }
     const onSubmit = (data) => {
-        console.log(data);
-        
-    alert(JSON.stringify(data))
-  }
+        dispatch(login(data));
+        navigate('/home');
+          }
   return (
     <div>
         <form className="bg-black bg-opacity-75 p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)} noValidate>
